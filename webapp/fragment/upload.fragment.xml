@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Upload Clauses">
+		<UploadCollection
+			maximumFilenameLength="55"
+			maximumFileSize="1000"
+			fileDeleted="onFileDeleted"
+			filenameLengthExceed="onFilenameLengthExceed"
+			fileRenamed="onFileRenamed"
+			fileSizeExceed="onFileSizeExceed"
+			id="UploadCollection"
+			change="onChange"
+			mode="SingleSelectMaster"
+			beforeUploadStarts="onBeforeUploadStarts"
+			multiple="true"
+			uploadUrl="/sap/opu/odata/DSN/S4FD_CLAUSE_UPLOAD_SRV/FileSet"
+			uploadComplete="onUploadComplete"
+			noDataText=""
+			noDataDescription="Drop files to upload, or use the &quot;+&quot; button."></UploadCollection>
+			<buttons>
+    <Button text="Cancel" press="onCancelBtn" type="Reject"/>
+</buttons>
+	</Dialog>
+</core:FragmentDefinition>

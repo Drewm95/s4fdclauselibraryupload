@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://sg7app.dassian.com:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='SV7CLNT100')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sg7app.dassian.com:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='SV7CLNT100')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sg7app.dassian.com:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='SV7CLNT100')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sg7app.dassian.com:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='SV7CLNT100')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://sg7app.dassian.com:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='SV7CLNT100')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="DSN.S4FD_CLAUSE_UPLOAD_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="File" m:HasStream="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="MIMEType" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="MIME Type"/>
+                <Property Name="FileData" Type="Edm.Binary" sap:unicode="false" sap:label="File Data"/>
+                <Property Name="UploadTime" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="Upload Time"/>
+                <Property Name="UploadDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Upload Date"/>
+                <Property Name="FileName" Type="Edm.String" MaxLength="255" m:FC_TargetPath="SyndicationTitle" m:FC_KeepInContent="false" sap:unicode="false" sap:label="File Name"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="ID"/>
+            </EntityType>
+            <EntityType Name="xDSNxS4FDCL_C_FILEDATAType" sap:label="Dassian Clause Library - File Data" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="file_uuid"/>
+                </Key>
+                <Property Name="file_uuid" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="Global Unique ID for table"/>
+                <Property Name="file_ext_uuid" Type="Edm.String" MaxLength="36"/>
+                <Property Name="filename" Type="Edm.String" MaxLength="255" sap:display-format="UpperCase" sap:label="Char255"/>
+                <Property Name="sydate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Date" sap:quickinfo="Field of type DATS"/>
+                <Property Name="sytime" Type="Edm.Time" Precision="0" sap:label="" sap:quickinfo="Field of type TIMS"/>
+                <Property Name="uname" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name"/>
+                <Property Name="mimetype" Type="Edm.String" MaxLength="100" sap:display-format="UpperCase" sap:label="" sap:quickinfo="Character 100"/>
+                <Property Name="status" Type="Edm.Byte"/>
+                <Property Name="filestatus" Type="Edm.String" MaxLength="7"/>
+                <Property Name="fileurl" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="to_filemsg" Relationship="DSN.S4FD_CLAUSE_UPLOAD_SRV.assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90" FromRole="FromRole_assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90" ToRole="ToRole_assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90"/>
+            </EntityType>
+            <EntityType Name="xDSNxS4FDCL_C_FILEMSGType" sap:label="Dassian Clause Library - file messages" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="filemsg_uuid"/>
+                </Key>
+                <Property Name="filemsg_uuid" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="Global Unique ID for table"/>
+                <Property Name="file_uuid" Type="Edm.Guid" sap:label="UUID" sap:quickinfo="Global Unique ID for table"/>
+                <Property Name="messagetype" Type="Edm.Byte"/>
+                <Property Name="message" Type="Edm.String" MaxLength="255"/>
+                <Property Name="linestatus" Type="Edm.String" MaxLength="7"/>
+            </EntityType>
+            <Association Name="assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90" sap:content-version="1">
+                <End Type="DSN.S4FD_CLAUSE_UPLOAD_SRV.xDSNxS4FDCL_C_FILEDATAType" Multiplicity="1" Role="FromRole_assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90"/>
+                <End Type="DSN.S4FD_CLAUSE_UPLOAD_SRV.xDSNxS4FDCL_C_FILEMSGType" Multiplicity="*" Role="ToRole_assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90"/>
+            </Association>
+            <EntityContainer Name="DSN_S4FD_CLAUSE_UPLOAD_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="FileSet" EntityType="DSN.S4FD_CLAUSE_UPLOAD_SRV.File" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="xDSNxS4FDCL_C_FILEDATA" EntityType="DSN.S4FD_CLAUSE_UPLOAD_SRV.xDSNxS4FDCL_C_FILEDATAType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="xDSNxS4FDCL_C_FILEMSG" EntityType="DSN.S4FD_CLAUSE_UPLOAD_SRV.xDSNxS4FDCL_C_FILEMSGType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90" Association="DSN.S4FD_CLAUSE_UPLOAD_SRV.assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="xDSNxS4FDCL_C_FILEDATA" Role="FromRole_assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90"/>
+                    <End EntitySet="xDSNxS4FDCL_C_FILEMSG" Role="ToRole_assoc_D0AA16E3FA702EBC1F9D7FFCE0435A90"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="DSN.S4FD_CLAUSE_UPLOAD_SRV.DSN_S4FD_CLAUSE_UPLOAD_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://sg7app.dassian.com:8000/sap/opu/odata/dsn/S4FD_CLAUSE_UPLOAD_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://sg7app.dassian.com:8000/sap/opu/odata/dsn/S4FD_CLAUSE_UPLOAD_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
